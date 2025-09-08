@@ -1,4 +1,5 @@
 import 'package:check_out_app/core/utils/styles.dart';
+import 'package:check_out_app/features/checkout/presentation/views/my_cart_viewbody.dart';
 import 'package:flutter/material.dart';
 
 class MyCartView extends StatelessWidget {
@@ -18,7 +19,7 @@ class MyCartView extends StatelessWidget {
           },
         ),
       ),
-      body: const Center(child: Text('Your cart is empty')),
+      body: MyCartViewBody(),
     );
   }
 }
