@@ -1,3 +1,4 @@
+import 'package:check_out_app/features/checkout/presentation/views/payment_details.dart';
 import 'package:flutter/material.dart';
 
 import 'package:check_out_app/core/utils/styles.dart';
@@ -59,7 +60,14 @@ class MyCartViewBody extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PaymentDetailsView(),
+                      ),
+                    );
+                  },
                   child: Text('Complete Payment', style: Styles.style22),
                 ),
               ),
