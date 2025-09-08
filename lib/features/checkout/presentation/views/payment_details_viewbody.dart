@@ -106,7 +106,6 @@ class _CustomCreditCardWidgetState extends State<CustomCreditCardWidget> {
           isHolderNameVisible: true,
           cardBgColor: const Color(0xff1b4b3e),
           isSwipeGestureEnabled: true,
-          customCardTypeIcons: <CustomCardTypeIcon>[],
           onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
         ),
         CreditCardForm(
