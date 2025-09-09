@@ -22,7 +22,13 @@ class _PaymentDetailsViewBodyState extends State<PaymentDetailsViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(children: [selectMethod(), CustomCreditCardWidget()]),
+        child: Column(
+          children: [
+            selectMethod(),
+            const SizedBox(height: 20),
+            buildSelectedMethodContent(),
+          ],
+        ),
       ),
     );
   }
@@ -77,6 +83,58 @@ class _PaymentDetailsViewBodyState extends State<PaymentDetailsViewBody> {
       }),
     );
   }
+
+  Widget buildSelectedMethodContent() {
+    if (selectedIndex == 0) {
+      return const CustomCreditCardWidget();
+    } else if (selectedIndex == 1) {
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const Text(
+              "Pay with PayPal",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 15),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "PayPal Email",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text("Proceed with PayPal"),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Column(
+        children: [
+          const Text(
+            "Pay with Apple Pay",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 15),
+          ElevatedButton.icon(
+            onPressed: () {},
+            icon: const Icon(Icons.apple),
+            label: const Text("Pay with Apple Pay"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            ),
+          ),
+        ],
+      );
+    }
+  }
 }
 
 class CustomCreditCardWidget extends StatefulWidget {
@@ -88,9 +146,9 @@ class CustomCreditCardWidget extends StatefulWidget {
 
 class _CustomCreditCardWidgetState extends State<CustomCreditCardWidget> {
   String cardNumber = '', expiryDate = '', cardHolderName = '', cvvCode = '';
-
   bool showBackView = false;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Column(

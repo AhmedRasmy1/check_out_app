@@ -23,13 +23,11 @@ class MyCartViewBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Center(
-                child: Expanded(
-                  child: Image.asset(
-                    'assets/images/baskett.png',
-                    width: width * 0.9,
-                    height: height * 0.51,
-                    fit: BoxFit.contain,
-                  ),
+                child: Image.asset(
+                  'assets/images/baskett.png',
+                  width: width * 0.9,
+                  height: height * 0.51,
+                  fit: BoxFit.contain,
                 ),
               ),
               SizedBox(height: height * 0.02),
