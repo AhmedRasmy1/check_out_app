@@ -90,3 +90,12 @@ class OrderInfoItem extends Row {
   final String label;
   final String value;
 }
+
+class CustomButton extends StatelessWidget {
+  const CustomButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
