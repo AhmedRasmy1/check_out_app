@@ -19,6 +19,8 @@ class _PaymentDetailsViewBodyState extends State<PaymentDetailsViewBody> {
     "assets/images/paypal_image.svg",
     "assets/images/apple_pay_image.svg",
   ];
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +93,10 @@ class _PaymentDetailsViewBodyState extends State<PaymentDetailsViewBody> {
 
   Widget buildSelectedMethodContent() {
     if (selectedIndex == 0) {
-      return const CustomCreditCardWidget();
+      return CustomCreditCardWidget(
+        formKey: formKey,
+        autoValidateMode: autoValidateMode,
+      );
     } else if (selectedIndex == 1) {
       return Padding(
         padding: const EdgeInsets.all(20.0),

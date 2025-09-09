@@ -1,10 +1,19 @@
+import 'dart:developer';
+
 import 'package:check_out_app/core/utils/styles.dart';
 import 'package:check_out_app/features/checkout/presentation/views/payment_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class CustomCreditCardWidget extends StatefulWidget {
-  const CustomCreditCardWidget({super.key});
+  CustomCreditCardWidget({
+    required this.formKey,
+    required this.autoValidateMode,
+    super.key,
+  });
+
+  final GlobalKey<FormState> formKey;
+  AutovalidateMode autoValidateMode;
 
   @override
   State<CustomCreditCardWidget> createState() => _CustomCreditCardWidgetState();
@@ -13,7 +22,6 @@ class CustomCreditCardWidget extends StatefulWidget {
 class _CustomCreditCardWidgetState extends State<CustomCreditCardWidget> {
   String cardNumber = '', expiryDate = '', cardHolderName = '', cvvCode = '';
   bool showBackView = false;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,7 @@ class _CustomCreditCardWidgetState extends State<CustomCreditCardWidget> {
           onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
         ),
         CreditCardForm(
+          autovalidateMode: widget.autoValidateMode,
           cardNumber: cardNumber,
           expiryDate: expiryDate,
           cardHolderName: cardHolderName,
@@ -49,7 +58,7 @@ class _CustomCreditCardWidgetState extends State<CustomCreditCardWidget> {
               showBackView = creditCardModel.isCvvFocused;
             });
           },
-          formKey: formKey,
+          formKey: widget.formKey,
         ),
 
         Padding(
@@ -66,12 +75,13 @@ class _CustomCreditCardWidgetState extends State<CustomCreditCardWidget> {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PaymentDetailsView(),
-                  ),
-                );
+                if (widget.formKey.currentState!.validate()) {
+                  widget.formKey.currentState!.save();
+                  log('valid');
+                } else {
+                  widget.autoValidateMode = AutovalidateMode.always;
+                  setState(() {});
+                }
               },
               child: Text('Pay', style: Styles.style22),
             ),
