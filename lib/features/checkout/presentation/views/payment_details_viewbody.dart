@@ -1,7 +1,6 @@
 import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
 import 'package:check_out_app/features/checkout/presentation/widgets/select_payment_method.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class PaymentDetailsViewBody extends StatefulWidget {
   const PaymentDetailsViewBody({super.key});

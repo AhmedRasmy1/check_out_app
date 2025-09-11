@@ -1,8 +1,4 @@
-import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
-import 'package:check_out_app/features/checkout/presentation/views/payment_details.dart';
-import 'package:check_out_app/features/checkout/presentation/views/payment_details_viewbody.dart';
 import 'package:check_out_app/features/checkout/presentation/widgets/payment_method_button_sheet.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/select_payment_method.dart';
 import 'package:flutter/material.dart';
 
 import 'package:check_out_app/core/utils/styles.dart';
