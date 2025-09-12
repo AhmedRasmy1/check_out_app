@@ -1,3 +1,4 @@
+import 'package:check_out_app/features/checkout/data/models/payment_intent_input_model.dart';
 import 'package:check_out_app/features/checkout/presentation/viewmodel/cubit/payment_cubit.dart';
 import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
 import 'package:check_out_app/features/checkout/presentation/views/thank_you_view.dart';
@@ -43,27 +44,32 @@ class CustomButtonBlocConsumer extends StatelessWidget {
           width: width * 0.9,
           height: height * 0.090,
           onPressed: () {
-            if (selectedIndex == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => CustomCreditCardWidget(
-                    formKey: formKey,
-                    autoValidateMode: autoValidateMode,
-                  ),
-                ),
-              );
-            } else if (selectedIndex == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const PaypalPage()),
-              );
-            } else if (selectedIndex == 2) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ApplePayPage()),
-              );
-            }
+            PaymentIntentInputModel paymentIntentInputModel =
+                PaymentIntentInputModel(amount: '100', currency: 'USD');
+            BlocProvider.of<PaymentCubit>(
+              context,
+            ).createPayment(paymentIntentInputModel: paymentIntentInputModel);
+            // if (selectedIndex == 0) {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (_) => CustomCreditCardWidget(
+            //         formKey: formKey,
+            //         autoValidateMode: autoValidateMode,
+            //       ),
+            //     ),
+            //   );
+            // } else if (selectedIndex == 1) {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (_) => const PaypalPage()),
+            //   );
+            // } else if (selectedIndex == 2) {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (_) => const ApplePayPage()),
+            //   );
+            // }
           },
           text: 'Choose Payment Method',
         );
