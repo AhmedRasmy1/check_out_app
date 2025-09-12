@@ -1,5 +1,5 @@
-import 'package:check_out_app/core/utils/styles.dart';
 import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
+import 'package:check_out_app/features/checkout/presentation/widgets/custom_button_bloc_consumer.dart';
 import 'package:check_out_app/features/checkout/presentation/widgets/select_payment_method.dart';
 import 'package:flutter/material.dart';
 
@@ -41,43 +41,12 @@ class _PaymentMethodButtonSheetState extends State<PaymentMethodButtonSheet> {
               });
             },
           ),
-          SizedBox(
-            width: width * 0.9,
-            height: height * 0.090,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff34a853),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              onPressed: () {
-                if (selectedIndex == 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => CustomCreditCardWidget(
-                        formKey: formKey,
-                        autoValidateMode: autoValidateMode,
-                      ),
-                    ),
-                  );
-                } else if (selectedIndex == 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => PaypalPage()),
-                  );
-                } else if (selectedIndex == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => ApplePayPage()),
-                  );
-                }
-              },
-
-              child: Text('Choose Payment Method', style: Styles.style22),
-            ),
+          CustomButtonBlocConsumer(
+            width: width,
+            height: height,
+            selectedIndex: selectedIndex,
+            formKey: formKey,
+            autoValidateMode: autoValidateMode,
           ),
         ],
       ),
