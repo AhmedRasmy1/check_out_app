@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:check_out_app/core/utils/api_keys.dart';
 import 'package:check_out_app/features/checkout/data/models/amount_model/amount_model.dart';
 import 'package:check_out_app/features/checkout/data/models/amount_model/details.dart';
@@ -50,15 +52,7 @@ class CustomButtonBlocConsumer extends StatelessWidget {
           onPressed: () {
             if (selectedIndex == 0) {
               // Stripe
-              PaymentIntentInputModel paymentIntentInputModel =
-                  PaymentIntentInputModel(
-                    amount: '100',
-                    currency: 'USD',
-                    customerId: 'cus_T2gAyLuJuYCYFi',
-                  );
-              BlocProvider.of<PaymentCubit>(
-                context,
-              ).createPayment(paymentIntentInputModel: paymentIntentInputModel);
+              executeStripePayment(context);
             } else if (selectedIndex == 1) {
               // Paypal
               var transactionData = getTransactionData();
@@ -83,6 +77,17 @@ class CustomButtonBlocConsumer extends StatelessWidget {
     );
   }
 
+  void executeStripePayment(BuildContext context) {
+    PaymentIntentInputModel paymentIntentInputModel = PaymentIntentInputModel(
+      amount: '100',
+      currency: 'USD',
+      customerId: 'cus_T2gAyLuJuYCYFi',
+    );
+    BlocProvider.of<PaymentCubit>(
+      context,
+    ).createPayment(paymentIntentInputModel: paymentIntentInputModel);
+  }
+
   void executePaypalPayment(
     BuildContext context,
     ({AmountModel amount, ItemListModel itemList}) transactionData,
@@ -97,19 +102,30 @@ class CustomButtonBlocConsumer extends StatelessWidget {
             {
               "amount": transactionData.amount.toJson(),
               "description": "The payment transaction description.",
-              "item_list": {transactionData.itemList.toJson()},
+              "item_list": transactionData.itemList.toJson(),
             },
           ],
           note: "Contact us for any questions on your order.",
           onSuccess: (Map params) async {
-            print("onSuccess: $params");
+            log("onSuccess: $params");
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const ThankYouView()),
+              (route) {
+                if (route.settings.name == '/') {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+            );
           },
           onError: (error) {
-            print("onError: $error");
+            log("onError: $error");
             Navigator.pop(context);
           },
           onCancel: () {
-            print('cancelled:');
+            log('cancelled:');
           },
         ),
       ),
