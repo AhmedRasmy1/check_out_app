@@ -1,9 +1,9 @@
-import 'package:check_out_app/features/checkout/data/repos/check_out_repo_impl.dart';
-import 'package:check_out_app/features/checkout/presentation/viewmodel/cubit/payment_cubit.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/payment_method_button_sheet.dart';
+import '../../data/repos/check_out_repo_impl.dart';
+import '../viewmodel/cubit/payment_cubit.dart';
+import '../widgets/payment_method_button_sheet.dart';
 import 'package:flutter/material.dart';
 
-import 'package:check_out_app/core/utils/styles.dart';
+import '../../../../core/utils/styles.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyCartViewBody extends StatelessWidget {

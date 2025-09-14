@@ -1,5 +1,5 @@
-import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/select_payment_method.dart';
+import 'custom_credit_card.dart';
+import '../widgets/select_payment_method.dart';
 import 'package:flutter/material.dart';
 
 class PaymentDetailsViewBody extends StatefulWidget {

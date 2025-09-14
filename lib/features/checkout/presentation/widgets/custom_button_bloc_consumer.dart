@@ -1,14 +1,14 @@
 import 'dart:developer';
 
-import 'package:check_out_app/core/utils/api_keys.dart';
-import 'package:check_out_app/features/checkout/data/models/amount_model/amount_model.dart';
-import 'package:check_out_app/features/checkout/data/models/amount_model/details.dart';
-import 'package:check_out_app/features/checkout/data/models/item_list_model/item.dart';
-import 'package:check_out_app/features/checkout/data/models/item_list_model/item_list_model.dart';
-import 'package:check_out_app/features/checkout/data/models/payment_intent_input_model.dart';
-import 'package:check_out_app/features/checkout/presentation/viewmodel/cubit/payment_cubit.dart';
-import 'package:check_out_app/features/checkout/presentation/views/thank_you_view.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/custom_button_for_payment.dart';
+import '../../../../core/utils/api_keys.dart';
+import '../../data/models/amount_model/amount_model.dart';
+import '../../data/models/amount_model/details.dart';
+import '../../data/models/item_list_model/item.dart';
+import '../../data/models/item_list_model/item_list_model.dart';
+import '../../data/models/payment_intent_input_model.dart';
+import '../viewmodel/cubit/payment_cubit.dart';
+import '../views/thank_you_view.dart';
+import 'custom_button_for_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';

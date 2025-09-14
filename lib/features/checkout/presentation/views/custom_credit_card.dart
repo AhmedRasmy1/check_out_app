@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:check_out_app/core/utils/styles.dart';
-import 'package:check_out_app/features/checkout/presentation/views/thank_you_view.dart';
+import '../../../../core/utils/styles.dart';
+import 'thank_you_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 

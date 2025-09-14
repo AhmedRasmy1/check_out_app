@@ -1,4 +1,4 @@
-import 'package:check_out_app/core/utils/styles.dart';
+import '../../../../core/utils/styles.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

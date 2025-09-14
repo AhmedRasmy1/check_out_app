@@ -1,6 +1,6 @@
-import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/custom_button_bloc_consumer.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/select_payment_method.dart';
+import '../views/custom_credit_card.dart';
+import 'custom_button_bloc_consumer.dart';
+import 'select_payment_method.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodButtonSheet extends StatefulWidget {

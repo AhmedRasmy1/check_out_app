@@ -1,5 +1,5 @@
-import 'package:check_out_app/core/utils/api_keys.dart';
-import 'package:check_out_app/features/checkout/presentation/views/my_cart_view.dart';
+import 'core/utils/api_keys.dart';
+import 'features/checkout/presentation/views/my_cart_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 

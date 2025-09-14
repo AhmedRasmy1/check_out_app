@@ -1,5 +1,5 @@
-import 'package:check_out_app/core/utils/styles.dart';
-import 'package:check_out_app/features/checkout/presentation/views/payment_details_viewbody.dart';
+import '../../../../core/utils/styles.dart';
+import 'payment_details_viewbody.dart';
 import 'package:flutter/material.dart';
 
 class PaymentDetailsView extends StatelessWidget {

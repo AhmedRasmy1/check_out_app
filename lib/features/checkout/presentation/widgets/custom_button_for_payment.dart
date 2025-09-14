@@ -1,4 +1,4 @@
-import 'package:check_out_app/core/utils/styles.dart';
+import '../../../../core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodButton extends StatelessWidget {
