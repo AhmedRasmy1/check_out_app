@@ -10,10 +10,6 @@ class PaymentIntentInputModel {
   });
 
   Map<String, dynamic> toMap() {
-    return {
-      'amount': '${amount}00',
-      'currency': currency,
-      'customer': customerId,
-    };
+    return {'amount': amount, 'currency': currency, 'customer': customerId};
   }
 }

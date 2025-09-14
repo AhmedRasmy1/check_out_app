@@ -1,9 +1,7 @@
 import 'package:check_out_app/features/checkout/data/models/payment_intent_input_model.dart';
 import 'package:check_out_app/features/checkout/presentation/viewmodel/cubit/payment_cubit.dart';
-import 'package:check_out_app/features/checkout/presentation/views/custom_credit_card.dart';
 import 'package:check_out_app/features/checkout/presentation/views/thank_you_view.dart';
 import 'package:check_out_app/features/checkout/presentation/widgets/custom_button_for_payment.dart';
-import 'package:check_out_app/features/checkout/presentation/widgets/payment_method_button_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

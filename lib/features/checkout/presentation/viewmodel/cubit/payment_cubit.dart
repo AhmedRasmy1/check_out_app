@@ -19,10 +19,10 @@ class PaymentCubit extends Cubit<PaymentState> {
     final result = await checkOutRepo.createPayment(
       paymentIntentInputModel: paymentIntentInputModel,
     );
-    result.fold(
-      (failure) => emit(PaymentFailure(errMessage: failure.errMessage)),
-      (_) => emit(PaymentSuccess()),
-    );
+    result.fold((failure) {
+      log('Payment Failure: ${failure.errMessage}');
+      emit(PaymentFailure(errMessage: failure.errMessage));
+    }, (_) => emit(PaymentSuccess()));
   }
 
   @override
