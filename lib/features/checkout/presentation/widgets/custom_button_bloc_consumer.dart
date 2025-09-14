@@ -1,3 +1,8 @@
+import 'package:check_out_app/core/utils/api_keys.dart';
+import 'package:check_out_app/features/checkout/data/models/amount_model/amount_model.dart';
+import 'package:check_out_app/features/checkout/data/models/amount_model/details.dart';
+import 'package:check_out_app/features/checkout/data/models/item_list_model/item.dart';
+import 'package:check_out_app/features/checkout/data/models/item_list_model/item_list_model.dart';
 import 'package:check_out_app/features/checkout/data/models/payment_intent_input_model.dart';
 import 'package:check_out_app/features/checkout/presentation/viewmodel/cubit/payment_cubit.dart';
 import 'package:check_out_app/features/checkout/presentation/views/thank_you_view.dart';
@@ -56,56 +61,8 @@ class CustomButtonBlocConsumer extends StatelessWidget {
               ).createPayment(paymentIntentInputModel: paymentIntentInputModel);
             } else if (selectedIndex == 1) {
               // Paypal
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => PaypalCheckoutView(
-                    sandboxMode: true,
-                    clientId: "",
-                    secretKey: "",
-                    transactions: const [
-                      {
-                        "amount": {
-                          "total": '70',
-                          "currency": "USD",
-                          "details": {
-                            "subtotal": '70',
-                            "shipping": '0',
-                            "shipping_discount": 0,
-                          },
-                        },
-                        "description": "The payment transaction description.",
-                        "item_list": {
-                          "items": [
-                            {
-                              "name": "Apple",
-                              "quantity": 4,
-                              "price": '5',
-                              "currency": "USD",
-                            },
-                            {
-                              "name": "Pineapple",
-                              "quantity": 5,
-                              "price": '10',
-                              "currency": "USD",
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                    note: "Contact us for any questions on your order.",
-                    onSuccess: (Map params) async {
-                      print("onSuccess: $params");
-                    },
-                    onError: (error) {
-                      print("onError: $error");
-                      Navigator.pop(context);
-                    },
-                    onCancel: () {
-                      print('cancelled:');
-                    },
-                  ),
-                ),
-              );
+              var transactionData = getTransactionData();
+              executePaypalPayment(context, transactionData);
             } else if (selectedIndex == 2) {
               Navigator.push(
                 context,
@@ -124,5 +81,54 @@ class CustomButtonBlocConsumer extends StatelessWidget {
         );
       },
     );
+  }
+
+  void executePaypalPayment(
+    BuildContext context,
+    ({AmountModel amount, ItemListModel itemList}) transactionData,
+  ) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => PaypalCheckoutView(
+          sandboxMode: true,
+          clientId: ApiKeys.paypalClientId,
+          secretKey: ApiKeys.paypalSecretKey,
+          transactions: [
+            {
+              "amount": transactionData.amount.toJson(),
+              "description": "The payment transaction description.",
+              "item_list": {transactionData.itemList.toJson()},
+            },
+          ],
+          note: "Contact us for any questions on your order.",
+          onSuccess: (Map params) async {
+            print("onSuccess: $params");
+          },
+          onError: (error) {
+            print("onError: $error");
+            Navigator.pop(context);
+          },
+          onCancel: () {
+            print('cancelled:');
+          },
+        ),
+      ),
+    );
+  }
+
+  ({AmountModel amount, ItemListModel itemList}) getTransactionData() {
+    var amount = AmountModel(
+      total: '70',
+      currency: 'USD',
+      details: Details(subtotal: '70', shipping: '0', shippingDiscount: '0'),
+    );
+
+    var itemList = ItemListModel(
+      items: [
+        Item(name: "Apple", quantity: 4, price: '5', currency: "USD"),
+        Item(name: "Pineapple", quantity: 5, price: '10', currency: "USD"),
+      ],
+    );
+    return (amount: amount, itemList: itemList);
   }
 }
