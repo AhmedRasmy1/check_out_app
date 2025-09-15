@@ -7,3 +7,17 @@ abstract class CheckOutRepo {
     required PaymentIntentInputModel paymentIntentInputModel,
   });
 }
+
+abstract class PaymobRepo {
+  Future<Either<Failure, int>> registerOrder({
+    required String authToken,
+    required int amountCents,
+  });
+  Future<Either<Failure, String>> getPaymentKey({
+    required String authToken,
+    required int amountCents,
+    required int orderId,
+    required int integrationId,
+    required Map<String, dynamic> billingData,
+  });
+}

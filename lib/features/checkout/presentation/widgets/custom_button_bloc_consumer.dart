@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:check_out_app/features/checkout/presentation/views/paymob_view.dart';
+
 import '../../../../core/utils/api_keys.dart';
 import '../../data/models/amount_model/amount_model.dart';
 import '../../data/models/amount_model/details.dart';
@@ -7,6 +9,7 @@ import '../../data/models/item_list_model/item.dart';
 import '../../data/models/item_list_model/item_list_model.dart';
 import '../../data/models/payment_intent_input_model.dart';
 import '../viewmodel/cubit/payment_cubit.dart';
+import '../viewmodel/cubit/paymob_cubit.dart';
 import '../views/thank_you_view.dart';
 import 'custom_button_for_payment.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +34,60 @@ class CustomButtonBlocConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (selectedIndex == 2) {
+      return BlocConsumer<PaymobCubit, PaymobState>(
+        listener: (context, state) {
+          if (state is PaymobSuccess) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => PaymentView(
+                  paymentKey: state.paymentKey,
+                  iframeId: "960098",
+                ),
+              ),
+            );
+          } else if (state is PaymobError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Paymob Error: ${state.message}")),
+            );
+          }
+        },
+        builder: (context, state) {
+          return PaymentMethodButton(
+            isLoading: state is PaymobLoading,
+            width: width * 0.9,
+            height: height * 0.090,
+            onPressed: () {
+              BlocProvider.of<PaymobCubit>(context).payWithCard(
+                authToken:
+                    "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRBM05qWTNOaXdpY0doaGMyZ2lPaUppTURNMU5URXpOVEpqWkdVM1ltUmtNVEl4TURNeU4ySTROREZsWXpFMk5qaGlPV1V5TW1FMFlUUTNZV000WmpFNE16YzRZVGRoWldReFpUQXhOR05tSWl3aVpYaHdJam94TnpVM09UWXhOVGMyZlEuVE43cDhyaUVteUZ4bndEQWRNdUxJMXY4azlVOUp4RE5BOEZUNy1MSVd6dGJuend3NzFNRE45aC1CaEllSEJIRlRJd0hSdDNpNm5ZVFlUeVZBS1ZzM2c=",
+                amountCents: 10000,
+                orderId: 0,
+                integrationId: 5298452,
+                billingData: {
+                  "apartment": "NA",
+                  "email": "customer@test.com",
+                  "floor": "NA",
+                  "first_name": "Ahmed",
+                  "street": "Test St",
+                  "building": "NA",
+                  "phone_number": "+201111111111",
+                  "shipping_method": "PKG",
+                  "postal_code": "12345",
+                  "city": "Cairo",
+                  "country": "EG",
+                  "last_name": "Rasmy",
+                  "state": "Cairo",
+                },
+              );
+            },
+            text: "Pay with Paymob",
+          );
+        },
+      );
+    }
+
     return BlocConsumer<PaymentCubit, PaymentState>(
       listener: (context, state) {
         if (state is PaymentSuccess) {
@@ -46,7 +103,7 @@ class CustomButtonBlocConsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return PaymentMethodButton(
-          isLoading: state is PaymentLoading ? true : false,
+          isLoading: state is PaymentLoading,
           width: width * 0.9,
           height: height * 0.090,
           onPressed: () {
@@ -57,18 +114,6 @@ class CustomButtonBlocConsumer extends StatelessWidget {
               // Paypal
               var transactionData = getTransactionData();
               executePaypalPayment(context, transactionData);
-            } else if (selectedIndex == 2) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => Scaffold(
-                    appBar: AppBar(title: const Text('قريباً')),
-                    body: const Center(
-                      child: Text('سيتم إضافة طريقة الدفع قريباً'),
-                    ),
-                  ),
-                ),
-              );
             }
           },
           text: 'Choose Payment Method',
@@ -111,13 +156,7 @@ class CustomButtonBlocConsumer extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => const ThankYouView()),
-              (route) {
-                if (route.settings.name == '/') {
-                  return true;
-                } else {
-                  return false;
-                }
-              },
+              (route) => route.settings.name == '/',
             );
           },
           onError: (error) {

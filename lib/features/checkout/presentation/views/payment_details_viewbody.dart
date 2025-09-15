@@ -15,7 +15,7 @@ class _PaymentDetailsViewBodyState extends State<PaymentDetailsViewBody> {
   final List<String> paymentMethods = [
     "assets/images/card_image.svg",
     "assets/images/paypal_image.svg",
-    "assets/images/apple_pay_image.svg",
+    "assets/images/paymob_logo.svg",
   ];
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;

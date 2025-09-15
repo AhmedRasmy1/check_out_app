@@ -1,3 +1,5 @@
+import 'package:check_out_app/features/checkout/presentation/viewmodel/cubit/paymob_cubit.dart';
+
 import '../../data/repos/check_out_repo_impl.dart';
 import '../viewmodel/cubit/payment_cubit.dart';
 import '../widgets/payment_method_button_sheet.dart';
@@ -70,8 +72,16 @@ class MyCartViewBody extends StatelessWidget {
                           top: Radius.circular(25),
                         ),
                       ),
-                      builder: (context) => BlocProvider(
-                        create: (context) => PaymentCubit(CheckOutRepoImpl()),
+                      builder: (context) => MultiBlocProvider(
+                        providers: [
+                          BlocProvider(
+                            create: (context) =>
+                                PaymentCubit(CheckOutRepoImpl()),
+                          ),
+                          BlocProvider(
+                            create: (context) => PaymobCubit(PaymobRepoImpl()),
+                          ),
+                        ],
                         child: const PaymentMethodButtonSheet(),
                       ),
                     );

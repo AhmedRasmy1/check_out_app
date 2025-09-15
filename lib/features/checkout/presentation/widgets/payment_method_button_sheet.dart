@@ -18,7 +18,7 @@ class _PaymentMethodButtonSheetState extends State<PaymentMethodButtonSheet> {
   final List<String> paymentMethods = [
     "assets/images/card_image.svg",
     "assets/images/paypal_image.svg",
-    "assets/images/apple_pay_image.svg",
+    "assets/images/paymob_logo.svg",
   ];
   @override
   Widget build(BuildContext context) {

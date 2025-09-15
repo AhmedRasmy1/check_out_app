@@ -39,6 +39,8 @@ dependencies:
   flutter_paypal_payment: ^1.0.8
   flutter_stripe: ^12.0.2
   flutter_svg: ^2.2.1
+  paymob_payment: ^0.0.1+1
+  webview_flutter: ^4.13.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0
