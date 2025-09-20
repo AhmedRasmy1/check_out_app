@@ -1,8 +1,4 @@
-import 'dart:developer';
-
-import 'package:check_out_app/core/utils/api_keys.dart';
 import 'package:check_out_app/core/utils/api_service.dart';
-import 'package:dio/dio.dart';
 
 class PaymobService {
   final ApiService apiService = ApiService();
